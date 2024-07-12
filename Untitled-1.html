@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>자동 계산기</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .item { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; padding: 5px; box-sizing: border-box; }
+        .result { margin-top: 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>자동 계산기</h2>
+        <div class="item">
+            <label for="keyring1">[키링] 밸뿌걸 파란머리 (3150원)</label>
+            <input type="number" id="keyring1" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="keyring2">[키링] 밸뿌걸 핑크머리 (3150원)</label>
+            <input type="number" id="keyring2" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="keyring3">[키링] 욱뿌보이 (3650원)</label>
+            <input type="number" id="keyring3" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="keyring4">[키링] 어니보이 (3350원)</label>
+            <input type="number" id="keyring4" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="griptok1">[그립톡] 밸뿌걸 파란머리 (3500원)</label>
+            <input type="number" id="griptok1" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="griptok2">[그립톡] 밸뿌걸 핑크머리 (3500원)</label>
+            <input type="number" id="griptok2" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="griptok3">[그립톡] 욱뿌보이 (3700원)</label>
+            <input type="number" id="griptok3" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="griptok4">[그립톡] 어니보이 (3700원)</label>
+            <input type="number" id="griptok4" value="0" min="0">
+        </div>
+        <div class="result">
+            <p id="total">키링+그립톡 가격: 0 KRW</p>
+            <p id="final">키링+그립톡+배송비 가격: 0 KRW</p>
+        </div>
+    </div>
+
+    <script>
+        const prices = {
+            keyring1: 3150,
+            keyring2: 3150,
+            keyring3: 3650,
+            keyring4: 3350,
+            griptok1: 3500,
+            griptok2: 3500,
+            griptok3: 3700,
+            griptok4: 3700
+        };
+
+        const shippingFee = 3454;
+
+        function calculateTotal() {
+            let totalPrice = 0;
+
+            for (let item in prices) {
+                const quantity = document.getElementById(item).value;
+                totalPrice += prices[item] * quantity;
+            }
+
+            const finalPrice = totalPrice + shippingFee;
+
+            document.getElementById("total").innerText = `Total price without shipping: ${totalPrice} KRW`;
+            document.getElementById("final").innerText = `Final price with shipping: ${finalPrice} KRW`;
+        }
+
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        calculateTotal();
+    </script>
+</body>
+</html>
