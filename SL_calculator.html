@@ -50,7 +50,7 @@
         <div class="result">
             <p id="belbboo">밸뿌 금액: 0원</p>
             <p id="publicFee">총 공통비 (배송비 포함): 0원</p>
-            <p id="final">최종 금액 (배송비 포함): 0원</p>
+            <p id="final">최종 금액: 0원</p>
         </div>
     </div>
 
@@ -87,7 +87,7 @@
 
             document.getElementById("belbboo").innerText = `밸뿌 금액: ${numberWithCommas(totalPrice)}원`;
             document.getElementById("publicFee").innerText = `총 공통비 (배송비 포함): ${numberWithCommas(totalPublicFee)}원`;
-            document.getElementById("final").innerText = `최종 금액 (배송비 포함): ${numberWithCommas(finalPrice)}원`;
+            document.getElementById("final").innerText = `최종 금액: ${numberWithCommas(finalPrice)}원`;
         }
 
         document.querySelectorAll('input[type="number"]').forEach(input => {
