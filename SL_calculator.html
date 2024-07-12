@@ -4,6 +4,7 @@
     <title>밸뿌걸 계산기</title>
     <style>
         body { font-family: Arial, sans-serif; }
+        h2 span{ display: block; font-size: 0.8rem; margin-top: 5px; }
         .container { max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         .item { margin-bottom: 10px; }
         label { display: block; margin-bottom: 5px; }
@@ -14,7 +15,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>밸뿌걸 계산기</h2>
+        <h2>밸뿌걸 계산기<span>공통비는 자동 합계산됩니다💙</span></h2>
         <div class="item">
             <label for="keyring1">[키링] 밸뿌걸 파란머리 (3,150원)</label>
             <input type="number" id="keyring1" value="0" min="0">
@@ -48,26 +49,23 @@
             <input type="number" id="griptok4" value="0" min="0">
         </div>
         <div class="result">
-            <p id="belbboo">밸뿌 금액: 0원</p>
-            <p id="publicFee">총 공통비 (배송비 포함): 0원</p>
-            <p id="final">최종 금액: 0원</p>
+            <p id="final">합계: 0원</p>
         </div>
     </div>
 
     <script>
         const prices = {
-            keyring1: 3150,
-            keyring2: 3150,
-            keyring3: 3650,
-            keyring4: 3350,
-            griptok1: 3500,
-            griptok2: 3500,
-            griptok3: 3700,
-            griptok4: 3700
+            keyring1: 3318,
+            keyring2: 3318,
+            keyring3: 3818,
+            keyring4: 3518,
+            griptok1: 3668,
+            griptok2: 3668,
+            griptok3: 3868,
+            griptok4: 3868
         };
 
         const shippingFee = 3454;
-        const publicFeePerItem = 168;
 
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -75,19 +73,15 @@
 
         function calculateTotal() {
             let totalPrice = 0;
-            let totalPublicFee = shippingFee;
 
             for (let item in prices) {
                 const quantity = document.getElementById(item).value;
                 totalPrice += prices[item] * quantity;
-                totalPublicFee += publicFeePerItem * quantity;
             }
 
-            const finalPrice = totalPrice + totalPublicFee;
+            const finalPrice = totalPrice + shippingFee;
 
-            document.getElementById("belbboo").innerText = `밸뿌 금액: ${numberWithCommas(totalPrice)}원`;
-            document.getElementById("publicFee").innerText = `총 공통비 (배송비 포함): ${numberWithCommas(totalPublicFee)}원`;
-            document.getElementById("final").innerText = `최종 금액: ${numberWithCommas(finalPrice)}원`;
+            document.getElementById("final").innerText = `합계: ${numberWithCommas(finalPrice)}원`;
         }
 
         document.querySelectorAll('input[type="number"]').forEach(input => {
