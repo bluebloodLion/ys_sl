@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>액굴키 계산기</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 span{ display: block; font-size: 0.8rem; margin-top: 5px; }
+        .container { max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .item { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; padding: 5px; box-sizing: border-box; }
+        .check{ display: flex; align-items: center; margin-bottom: 10px; }
+        .check label{ margin-bottom: 0; }
+        .result { margin-top: 20px; font-size: 1.2em; }
+        #final{ color: #0b19ad; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>액굴키 계산기<span>공통비는 자동 합계산됩니다💙</span></h2>
+        <div class="item">
+            <label for="keyring1">작은 액굴키 (1,231,231원)</label>
+            <input type="number" id="keyring1" value="0" min="0">
+        </div>
+        <div class="item">
+            <label for="keyring2">큰 액굴키 (5,454원)</label>
+            <input type="number" id="keyring2" value="0" min="0">
+        </div>
+        <div class="check">
+            <input type="checkbox" id="combineShipping">
+            <label for="combineShipping">밸뿌걸을 구매하였고 합배송을 원하면 체크해 주세요</label>
+        </div>
+        <div class="result">
+            <p id="final">합계: 0원</p>
+        </div>
+    </div>
+
+    <script>
+        const prices = {
+            keyring1: 1231231,
+            keyring2: 5454
+        };
+
+        const shippingFee = 3454;
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculateTotal() {
+            let totalPrice = 0;
+
+            for (let item in prices) {
+                const quantity = document.getElementById(item).value;
+                totalPrice += prices[item] * quantity;
+            }
+
+            const combineShipping = document.getElementById('combineShipping').checked;
+            let finalPrice = totalPrice;
+
+            if (!combineShipping) {
+                finalPrice += shippingFee;
+            }
+
+            document.getElementById("final").innerText = `최종 금액 (${combineShipping ? '합배송' : '개별 배송'}): ${numberWithCommas(finalPrice)}원`;
+        }
+
+        document.querySelectorAll('input[type="number"], input[type="checkbox"]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        calculateTotal();
+    </script>
+</body>
+</html>
